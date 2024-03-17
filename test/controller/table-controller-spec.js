@@ -31,7 +31,7 @@ describe('TableController', function () {
 
     describe("Initialisation", function () {
         it("should initialise data to null", function () {
-
+            expect($scope.tableData).toBeNull();
         });
     });
 });
