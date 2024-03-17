@@ -22,18 +22,12 @@ angular.module('cake', [])
         };
 
         $scope.toggleDesertType = function () {
-            if (dessertManager.dessertType === "cake") {
-                dessertManager.dessertSetting("doughnuts");
+            if (dessertManager.getDessertType() === "cake") {
+                console.log('dessertManager.setDessertType("doughnuts")', dessertManager.getDessertType() );
+                dessertManager.setDessertType("doughnuts");
             } else {
-                dessertManager.dessertSetting("cake");
+                console.log('dessertManager.setDessertType("cake")', dessertManager.getDessertType() );
+                dessertManager.setDessertType("cake");
             }
-
-            $scope.$digest();
-
-            // Note: when using spyOn in tests the values will set to null so this does not work
-            // var chosenDessert = dessertManager.dessertSetting();
-            // Now the 'dessertType' property is set to the default value "cake"
-            // console.log('Chosen dessert type:', chosenDessert); // Output: "Chosen dessert type: Cake"
         }
-
     }]);

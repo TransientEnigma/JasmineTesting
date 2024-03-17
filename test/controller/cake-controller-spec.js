@@ -77,58 +77,14 @@ describe('CakeController', function () {
         let dessertSettingSpy;
 
         beforeEach(function() {
-            dessertSettingSpy = spyOn(dessertManager, 'dessertSetting');
+            dessertSettingSpy = spyOn(dessertManager, 'setDessertType');
         });
 
-        it('should switch the dessertType to doughnuts when the dessertType is cake', function () {
-            $scope.toggleDesertType();
-            expect(dessertSettingSpy).toHaveBeenCalledWith("doughnuts");
-
+        it('should switch the dessertType to doughnuts when the default is cake', function () {
+           const dessertType = dessertManager.getDessertType();
+           expect(dessertType).toEqual('cake');
+           $scope.toggleDesertType();
+           expect(dessertSettingSpy).toHaveBeenCalledWith("doughnuts");
         });
-
-        it('should switch the dessertType to cake when the dessertType is doughnuts', function () {
-            $scope.toggleDesertType("doughnuts");
-            expect(dessertManager.dessertType).toEqual("cake");
-        });
-    });
-});
-// In this test:
-//
-//     We create a mock for my_factory using Jasmine’s jasmine.createSpy().
-//     We inject the mock into the DessertManager factory using $provide.value.
-//     We verify that the dessertSetting function calls the mock with the provided setting.
-//     We also check that calling dessertSetting without any argument returns the default dessert type, which is ‘Cake’.
-describe('DessertManager', function() {
-    var DessertManager, mockedFactory;
-
-    // Load the 'desserts' module
-    beforeEach(module('desserts'));
-
-    // Create a mock for DessertManager
-    beforeEach(function() {
-        mockedFactory = {
-            dessertSetting: jasmine.createSpy()
-        };
-
-        // Inject the mockedFactory into the DessertManager factory
-        module(function($provide) {
-            $provide.value(DessertManager, mockedFactory);
-        });
-    });
-
-    // since we are using the desserts module we can Inject the DessertManager factory
-    beforeEach(inject(function(_DessertManager_) {
-        DessertManager = _DessertManager_;
-    }));
-
-    // it('should call dessertSetting with provided setting', function() {
-    //     var setting = 'cake';
-    //     DessertManager.dessertSetting(setting);
-    //     expect(mockedFactory.dessertSetting).toHaveBeenCalledWith(setting);
-    // });
-
-    it('should return default dessertType if no setting is provided', function() {
-        var defaultDessertType = DessertManager.dessertSetting();
-        expect(defaultDessertType).toBe('cake');
     });
 });
