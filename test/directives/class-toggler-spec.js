@@ -29,21 +29,21 @@ describe('classToggler', function () {
         $body.append(htmlElement);
         // kick of the angular life cycle
         $rootScope.$digest();
-        console.log('start:', htmlElement);
+        // console.log('start:', htmlElement);
         // initially it will not have a class
         expect(htmlElement.hasClass('myClass')).toBeFalsy();
         // when we click it a class is added
         htmlElement.click();
         // required to trigger the Angular life cycle
         $scope.$digest();
-        console.log('1st click:', htmlElement);
+        // console.log('1st click:', htmlElement);
         // it should now have the class
         expect(htmlElement.hasClass('myClass')).toBeTruthy();
         // when we click it again class is removed
         htmlElement.click();
         // required to trigger the Angular life cycle
         $scope.$digest();
-        console.log('2nd click:', htmlElement);
+        // console.log('2nd click:', htmlElement);
         // it should now have been removed
         expect(htmlElement.hasClass('myClass')).toBeFalsy();
     });

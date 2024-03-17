@@ -83,7 +83,7 @@ describe("textAndReveal", function () {
         // fire all the watches, so the scope expression {{something}} will be evaluated
         $rootScope.$digest();
 
-        console.log('$element:', $element.attr('text'));
+        // console.log('$element:', $element.attr('text'));
 
         expect($element.attr('text')).toEqual("Sample Text");
 
@@ -97,7 +97,7 @@ describe("textAndReveal", function () {
         // fire all the watches, so the scope expression {{something}} will be evaluated
         $rootScope.$digest();
 
-        console.log('$element:', $element.attr('reveal'));
+        // console.log('$element:', $element.attr('reveal'));
 
         expect($element.attr('reveal')).toEqual("Yes");
     });

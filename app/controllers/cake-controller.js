@@ -23,10 +23,10 @@ angular.module('cake', [])
 
         $scope.toggleDesertType = function () {
             if (dessertManager.getDessertType() === "cake") {
-                console.log('dessertManager.setDessertType("doughnuts")', dessertManager.getDessertType() );
+                // console.log('dessertManager.setDessertType("doughnuts")', dessertManager.getDessertType() );
                 dessertManager.setDessertType("doughnuts");
             } else {
-                console.log('dessertManager.setDessertType("cake")', dessertManager.getDessertType() );
+                // console.log('dessertManager.setDessertType("cake")', dessertManager.getDessertType() );
                 dessertManager.setDessertType("cake");
             }
         }

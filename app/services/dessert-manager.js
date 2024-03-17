@@ -1,12 +1,12 @@
 angular.module('desserts', []).factory('DessertManager', function () {
 
-    var dessertType = 'cake';
+    let dessertType = 'cake';
 
-    var updateDessert = function (dessert) {
+    const updateDessert = function (dessert) {
         if (dessert) {
             dessertType = dessert;
         }
-    }
+    };
 
     return {
         setDessertType: function (dessert) {
