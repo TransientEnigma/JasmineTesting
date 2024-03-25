@@ -10,7 +10,7 @@ describe('TableController', function () {
         inject(function ($injector){
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
-            dataServiceSpy = syOnAngularService($injector.get('DataService'), 'getRemoteData', { name: 'orange mer-rang' });
+            dataServiceSpy = spyOnAngularService($injector.get('DataService'), 'getRemoteData', '{"data":[{"name":"Apple Pie","price":150},{"name":"Raspberry Pie","price":100},{"name":"Strawberry Pie","price":500000}]}');
             controller = $injector.get('$controller')('TableController', {$scope: $scope});
         });
     });
@@ -22,10 +22,11 @@ describe('TableController', function () {
             expect(dataServiceSpy).toHaveBeenCalledTimes(1);
             expect(dataServiceSpy).toHaveBeenCalledWith();
         });
+
         it("should set the data to the result of the service call", function () {
             $scope.setTableData();
             expect(dataServiceSpy).toHaveBeenCalledTimes(1);
-            expect($scope.tableData).toEqual({ name: 'orange mer-rang' });
+            expect($scope.tableData).toEqual('{"data":[{"name":"Apple Pie","price":150},{"name":"Raspberry Pie","price":100},{"name":"Strawberry Pie","price":500000}]}');
         });
     });
 

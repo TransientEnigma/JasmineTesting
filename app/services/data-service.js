@@ -6,16 +6,14 @@ angular.module('data', []).value('Pies', {
     ]
 });
 
-angular.module('data').factory('DataService', function (Pies, $timeout, $q) {
-    const getData = function () {
-        return angular.toJson(Pies);
-    };
-
+// dummy data service
+angular.module('data').factory('DataService', function (Pies, $q) {
     return {
+        //dummy request returns a promise
         getRemoteData: function () {
-            console.log('>>> TableController: getRemoteData')
             let deferred = $q.defer();
-            deferred.resolve($timeout(getData(), 1000));
+            // return setTimeout(function() {deferred.resolve(angular.toJson(Pies))}, 1000);
+            deferred.resolve(angular.toJson(Pies));
             return deferred.promise
         }
     }
