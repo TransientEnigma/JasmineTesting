@@ -22,10 +22,13 @@ describe("textAndReveal", function () {
             // put the template into the cache
             $templateCache = $injector.get('$templateCache');
             // note the key is the same as the templateUrl (in directive)
+
             $templateCache.put(
                 'text-and-reveal.html',
                 '<span class="text-and-reveal"><h3 ng-bind="text"></h3><h5 ng-bind="reveal" ng-show="reveal"></h5></span>'
             );
+
+            // todo: make a template helper to load all templates into cache before test runs.
 
             // use this to check and confirm we can get template from the cache
             // htmlTemplate = $templateCache.get('text-and-reveal.html');
