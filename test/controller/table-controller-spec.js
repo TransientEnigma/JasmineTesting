@@ -25,7 +25,7 @@ describe('TableController', function () {
             parentController = $controller("TableController", {$scope: $scope})
 
             // create a new $scope from the parent one
-            // $scope = $scope.$new();
+            $scope = $scope.$new();
 
             // instantiate the child with the new scope from parent
             childController = $controller('CutleryController', {$scope: $scope});
