@@ -68,7 +68,7 @@ describe("textAndReveal", function () {
         $rootScope.$digest();
         // confirm directive text attribute is set
         expect($element.attr('text')).toEqual("Sample Text");
-        // confirm the directive template renders with H3 text renders
+        // confirm the directive template renders with H3 text
         expect($body.find('h3')[0].innerHTML).toEqual("Sample Text");
     });
 
@@ -78,7 +78,7 @@ describe("textAndReveal", function () {
         $scope.$digest();
         // confirm directive reveal attribute has text set
         expect($element.attr('reveal')).toEqual("Sample Text");
-        // confirm the directive template renders with H5 text renders
+        // confirm the directive template renders with H5 text
         expect($body.find('h5')[0].innerHTML).toEqual("Sample Text");
     });
 
