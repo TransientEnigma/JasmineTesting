@@ -3,17 +3,14 @@ describe("textAndReveal", function () {
     let $rootScope,
         $scope,
         $compile,
-        htmlTemplate,
-        element,
         $element,
         $body = $('body'),
         textRevealElement = '<text-and-reveal text="{{scopeText}}" reveal="{{scopeReveal}}"></text-and-reveal>',
         textRevealHtmlElement = '';
 
     beforeEach(function () {
-        // import our directives module and templates
-        // module('template.html','directives');
-        // module('directives');
+        // import directives
+        module('directives');
 
         // use Angular inject to get rootScope (to create scope) and compile (to compile html)
         inject(function($injector){
@@ -22,35 +19,31 @@ describe("textAndReveal", function () {
             //create a scope
             $scope = $rootScope.$new();
 
+            // put the template into the cache
+            $templateCache = $injector.get('$templateCache');
+            // note the key is the same as the templateUrl (in directive)
+            $templateCache.put(
+                'text-and-reveal.html',
+                '<span class="text-and-reveal"><h3 ng-bind="text"></h3><h5 ng-bind="reveal" ng-show="reveal"></h5></span>'
+            );
 
-            // $templateCache = $injector.get('$templateCache');
-
-            // $templateCache.put('text-and-reveal.html',
-            //     '<span class="text-and-reveal">\n' +
-            //     '    <h3 ng-bind="text"></h3>\n' +
-            //     '    <h5\n' +
-            //     '        ng-bind="reveal"\n' +
-            //     '        ng-show="reveal"\n' +
-            //     '    >\n' +
-            //     '    </h5>\n' +
-            //     '</span>');
-
-
+            // use this to check and confirm we can get template from the cache
             // htmlTemplate = $templateCache.get('text-and-reveal.html');
             // console.log('htmlTemplate:', htmlTemplate );
 
             // grab compile
             $compile = $injector.get('$compile');
+            // compile with scope, so we have the angular html element and scope
             textRevealHtmlElement = $compile(angular.element(textRevealElement))($scope)
 
         });
-        // the simple HTML element is then added to our body
+        // the HTML element is then added to our body
         $body.append(textRevealHtmlElement);
 
-        // kick of the angular life cycle
+        // kick off the angular life cycle
         $rootScope.$digest();
 
-        // Grabs from the body. If it is there it confirms element html has been compiled
+        // Grabs from the body. If it is there it confirms element has been compiled
         $element = $('text-and-reveal');
     });
 
@@ -62,54 +55,46 @@ describe("textAndReveal", function () {
         expect($element.length).toEqual(1);
     });
 
-    // it("should render out the text from the scope", function () {
-    //     // set the scopeText
-    //     $scope.scopeText = "Sample Text";
-    //
-    //     // fire all the watches, so the scope expression {{something}} will be evaluated
-    //     $rootScope.$digest();
-    //
-    //     console.log('$element:', $element.length);
-    //
-    //     expect($element.length).toEqual(1);
-    //
-    // });
-
+    it("should render out the text from the scope", function () {
+        // set the scopeText
+        $scope.scopeText = "Sample Text";
+        // fire all the watches, so the scope expression {{something}} will be evaluated
+        $rootScope.$digest();
+        // console.log('$element:', $element.length);
+        expect($element.length).toEqual(1);
+    });
 
     it("should render out the text from the scope", function () {
         // set the scopeText
         $scope.scopeText = "Sample Text";
-
         // fire all the watches, so the scope expression {{something}} will be evaluated
         $rootScope.$digest();
-
         // console.log('$element:', $element.attr('text'));
-
         expect($element.attr('text')).toEqual("Sample Text");
-
     });
-
 
     it("it should render out the reveal from the scope", function () {
         // set the scopeText
         $scope.scopeReveal= "Yes";
-
         // fire all the watches, so the scope expression {{something}} will be evaluated
         $rootScope.$digest();
-
         // console.log('$element:', $element.attr('reveal'));
-
         expect($element.attr('reveal')).toEqual("Yes");
     });
 
-    // it("it should hide the reveal text when reveal is not set", function () {
-    //     $rootScope.$digest();
-    //     console.log($body.find('h5'))
-    // });
+    it("it should reveal the H5 with inner text when the scopeReveal is set", function () {
+        $scope.scopeReveal= "Sample Text";
+        $scope.$digest();
+        // check we have the h5
+        // console.log($body.find('h5')[0]);
+        expect($body.find('h5')[0].innerHTML).toEqual("Sample Text");
+    });
 
-    //
-    // it("should render the reveal text when reveal is provided", function () {
-    //
-    // });
-
+    it("it should hide the h5 when the scopeReveal is not set", function () {
+        $scope.scopeReveal= "";
+        $scope.$digest();
+        // check we have the class ng-hide
+        // console.log($body.find('h5')[0].className);
+        expect($body.find('h5')[0].className).toContain('ng-hide');
+    });
 });
